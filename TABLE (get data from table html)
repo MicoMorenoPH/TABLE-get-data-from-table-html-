@@ -1,0 +1,51 @@
+
+1.CREATE TABLE IN HTML and POPULATE DATA IN TABLE
+<div class="table-responsive" id="CreateRequest-table">
+      <table class="table table-bordered m-0" id="CreateRequest-table-hdr">
+          <thead class="mytable">
+              <tr>
+                  <th style="min-width:30%">EMPLOYEE ID</th>
+                  <th style="min-width:30%">EMPLOYEE NAME</th>
+              </tr>
+          </thead>
+          <tbody id="CreateRequest-table-dtl">
+            <tr>
+              <td>123456</td>
+              <td>JUAN</td>
+            </tr>
+            <tr>
+              <td>678910</td>
+              <td>PETER</td>
+            </tr>
+          </tbody>
+      </table>
+  </div>
+
+2.CREATE CONTROLLER TO INSERT DATA FROM table
+
+public ActionResult insertEmpList (YourModelName [] sysParam){
+
+//do something here..
+
+return Json();
+}
+
+3.GET DATA FROM TABLE USING JAVASCRIPT
+var dtl = [] ; //ARRAY TO HADNDLE MULTIPLE DATA FROM TABLE
+$('#CreateRequest-table-dtl tr').each(function () {
+     var vdtl = {} //LIST VARIABLE
+     vdtl["empID"] = $(this).closest("tr").find("#d-empID").text()
+     vdtl["empName"] = $(this).closest("tr").find("#d-empName").text()
+     dtl.push(vdtl);
+ });
+
+ $.ajax({
+         url: "/YourControllerName/YourMethodName",
+         type: "post",
+         dataType: "json",
+         data: {
+             sysParam: dtl
+         },
+         success: function (data) {
+             //do something here..
+         }
